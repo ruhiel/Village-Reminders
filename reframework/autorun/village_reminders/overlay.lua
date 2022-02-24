@@ -157,18 +157,18 @@ function overlay.draw()
 
       for i = 1, subs do
         local request = requests[i]
-        local prefix = "Sub " .. i .. ": "
+        local prefix = "交渉依頼 " .. i .. ": "
 
         if config.get_argosy_idle() and request.idle then
-          table.insert(module_reminders, prefix .. "Idle")
+          table.insert(module_reminders, prefix .. "待機")
         end
 
         if request.uncollected > config.get_argosy_uncollected() then
-          table.insert(module_reminders, prefix .. request.uncollected .. "/" .. request.max_uncollected .. " Uncollected")
+          table.insert(module_reminders, prefix .. request.uncollected .. "/" .. request.max_uncollected .. " 未受領")
         end
 
         if not request.idle and request.skill_duration < config.get_argosy_skill_duration() then
-          table.insert(module_reminders, prefix .. request.skill_duration .. "/" .. request.max_skill_duration .. " Skill Duration")
+          table.insert(module_reminders, prefix .. request.skill_duration .. "/" .. request.max_skill_duration .. " オトモ交渉術")
         end
       end
 
@@ -184,19 +184,19 @@ function overlay.draw()
     local module_reminders = {}
 
     if status.rounds < config.get_buddy_dojo_rounds() then
-      table.insert(module_reminders, status.rounds .. "/" .. status.max_rounds .. " Rounds")
+      table.insert(module_reminders, status.rounds .. "/" .. status.max_rounds .. " 特訓回数")
     end
 
     if status.rounds > 0 and status.boosts < config.get_buddy_dojo_boosts() then
-      table.insert(module_reminders, status.boosts .. "/" .. status.max_boosts .. " Boosts")
+      table.insert(module_reminders, status.boosts .. "/" .. status.max_boosts .. " ブースト回数")
     end
 
     if status.buddies < config.get_buddy_dojo_buddies() then
-      table.insert(module_reminders, status.buddies .. "/" .. status.max_buddies .. " Buddies")
+      table.insert(module_reminders, status.buddies .. "/" .. status.max_buddies .. " 匹")
     end
 
     if status.maxed_buddies > config.get_buddy_dojo_maxed_buddies() then
-      table.insert(module_reminders, status.maxed_buddies .. " Max Level Budd" .. (status.maxed_buddies == 1 and "y" or "ies") .. " (" .. status.max_level .. ")")
+      table.insert(module_reminders, status.maxed_buddies .. " 匹のオトモが最大レベルになりました。"  .. " (" .. status.max_level .. ")")
     end
 
     if #module_reminders > 0 then
@@ -209,7 +209,7 @@ function overlay.draw()
     local uncollected, max_uncollected = cohoot_nest.get_status()
 
     if uncollected > config.get_cohoot_nest_uncollected() then
-      max_width = insert_reminder(reminders, constants.COHOOT_NEST_LABEL, {uncollected .. "/" .. max_uncollected .. " Uncollected"}, max_width)
+      max_width = insert_reminder(reminders, constants.COHOOT_NEST_LABEL, {uncollected .. "/" .. max_uncollected .. " 未受領"}, max_width)
       lines = lines + 2
     end
   end
@@ -220,11 +220,11 @@ function overlay.draw()
 
     if sale then
       if config.get_market_sale() then
-        table.insert(module_reminders, "Sale")
+        table.insert(module_reminders, "セール")
       end
 
       if config.get_market_lottery() and not lottery_done then
-        table.insert(module_reminders, "Lottery Available")
+        table.insert(module_reminders, "セール中")
       end
     end
 
@@ -239,15 +239,15 @@ function overlay.draw()
     local module_reminders = {}
 
     if config.get_melding_pot_idle() and not active then
-      table.insert(module_reminders, "Idle")
+      table.insert(module_reminders, "待機")
     end
 
     if orders < config.get_melding_pot_orders() then
-      table.insert(module_reminders, orders .. "/" .. max_orders .. " Orders")
+      table.insert(module_reminders, orders .. "/" .. max_orders .. " 依頼")
     end
 
     if uncollected > config.get_melding_pot_uncollected() then
-      table.insert(module_reminders, uncollected .. "/" .. max_uncollected .. " Uncollected")
+      table.insert(module_reminders, uncollected .. "/" .. max_uncollected .. " 未受領")
     end
 
     if #module_reminders > 0 then
@@ -261,11 +261,11 @@ function overlay.draw()
     local module_reminders = {}
 
     if config.get_meowcenaries_idle() and not operating then
-      table.insert(module_reminders, "Idle")
+      table.insert(module_reminders, "待機")
     end
 
     if step > config.get_meowcenaries_step() then
-      table.insert(module_reminders, "Step " .. step .. "/" .. steps)
+      table.insert(module_reminders, "調査ルート " .. step .. "/" .. steps)
     end
 
     if #module_reminders > 0 then
@@ -281,7 +281,7 @@ function overlay.draw()
     if config.get_npcs_speech_bubble() then
       for i, speech_bubble in ipairs(status.speech_bubble_areas) do
         if speech_bubble then
-          table.insert(module_reminders, "Speech Bubble in " .. constants.VILLAGE_AREA_LABELS[i])
+          table.insert(module_reminders, constants.VILLAGE_AREA_LABELS[i] .. "に話をしたい人がいるようです。" )
         end
       end
     end
@@ -297,11 +297,11 @@ function overlay.draw()
     local module_reminders = {}
 
     if active < config.get_subquests_active() then
-      table.insert(module_reminders, active .. "/" .. selectable .. " Active")
+      table.insert(module_reminders, active .. "/" .. selectable .. " 受注")
     end
 
     if completed > config.get_subquests_completed() then
-      table.insert(module_reminders, completed .. " Completed")
+      table.insert(module_reminders, completed .. " 達成")
     end
 
     if #module_reminders > 0 then

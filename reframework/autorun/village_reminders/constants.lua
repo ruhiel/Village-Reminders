@@ -6,22 +6,22 @@ local constants = {
   BOTTOM_RIGHT_ANCHOR = 4,
   -- Enums
   VILLAGE_AREA_LABELS = {
-    "Village (Outside)",
-    "Your Room",
-    "Buddy Plaza",
-    "Gathering Hall",
-    "Hub Prep Area",
-    "Training Area"
+    "カムラの里",
+    "自宅",
+    "オトモ広場",
+    "集会所",
+    "集会所 準備エリア",
+    "修練場"
   },
   -- Module Labels
-  ARGOSY_LABEL = "Argosy",
-  BUDDY_DOJO_LABEL = "Buddy Dojo",
-  COHOOT_NEST_LABEL = "Cohoot Nest",
-  MARKET_LABEL = "Market & Guild Store",
-  MELDING_POT_LABEL = "Melding Pot",
-  MEOWCENARIES_LABEL = "Meowcenaries",
-  NPCS_LABEL = "NPCs",
-  SUBQUESTS_LABEL = "Subquests"
+  ARGOSY_LABEL = "交易船",
+  BUDDY_DOJO_LABEL = "オトモ道場",
+  COHOOT_NEST_LABEL = "フクズクの巣",
+  MARKET_LABEL = "雑貨屋とギルドストア",
+  MELDING_POT_LABEL = "マカ錬金",
+  MEOWCENARIES_LABEL = "オトモ隠密隊",
+  NPCS_LABEL = "NPC",
+  SUBQUESTS_LABEL = "フリーサイドクエスト"
 }
 
 constants.MODULE_LABELS = {
