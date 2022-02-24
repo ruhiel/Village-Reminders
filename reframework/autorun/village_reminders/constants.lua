@@ -14,14 +14,14 @@ local constants = {
     "修練場"
   },
   -- Module Labels
-  ARGOSY_LABEL = "交易船",
-  BUDDY_DOJO_LABEL = "オトモ道場",
-  COHOOT_NEST_LABEL = "フクズクの巣",
-  MARKET_LABEL = "雑貨屋とギルドストア",
-  MELDING_POT_LABEL = "マカ錬金",
-  MEOWCENARIES_LABEL = "オトモ隠密隊",
-  NPCS_LABEL = "NPC",
-  SUBQUESTS_LABEL = "フリーサイドクエスト"
+  ARGOSY_LABEL = "Argosy",
+  BUDDY_DOJO_LABEL = "Buddy Dojo",
+  COHOOT_NEST_LABEL = "Cohoot Nest",
+  MARKET_LABEL = "Market & Guild Store",
+  MELDING_POT_LABEL = "Melding Pot",
+  MEOWCENARIES_LABEL = "Meowcenaries",
+  NPCS_LABEL = "NPCs",
+  SUBQUESTS_LABEL = "Subquests"
 }
 
 constants.MODULE_LABELS = {
@@ -33,6 +33,17 @@ constants.MODULE_LABELS = {
   constants.MEOWCENARIES_LABEL,
   constants.NPCS_LABEL,
   constants.SUBQUESTS_LABEL
+}
+
+constants.MODULE_LABELS_JP = {
+  "交易船",
+  "オトモ道場",
+  "フクズクの巣",
+  "雑貨屋とギルドストア",
+  "マカ錬金",
+  "オトモ隠密隊",
+  "NPC",
+  "フリーサイドクエスト"
 }
 
 return constants

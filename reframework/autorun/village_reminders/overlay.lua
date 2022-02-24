@@ -350,9 +350,10 @@ function overlay.draw()
   for i = 1, total_modules do
     local _module = DEBUG and i == 1 and DEBUG_LABEL or constants.MODULE_LABELS[module_order[i]]
     local module_reminders = reminders[_module]
+    local _module_jp = DEBUG and i == 1 and DEBUG_LABEL or constants.MODULE_LABELS_JP[module_order[i]]
 
     if module_reminders ~= nil then
-      d2d.text(bold_font, _module, left_x + padding, top_y + (font_size + line_spacing) * (line - 1) + padding - font_offset_y, foreground_color)
+      d2d.text(bold_font, _module_jp, left_x + padding, top_y + (font_size + line_spacing) * (line - 1) + padding - font_offset_y, foreground_color)
       line = line + 1
 
       for _, reminder in ipairs(module_reminders) do
