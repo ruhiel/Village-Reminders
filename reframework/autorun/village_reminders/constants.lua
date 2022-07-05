@@ -11,7 +11,8 @@ local constants = {
     "Buddy Plaza",
     "Gathering Hall",
     "Hub Prep Area",
-    "Training Area"
+    "Training Area",
+    "Elgado"
   },
   -- Module Labels
   ARGOSY_LABEL = "Argosy",
