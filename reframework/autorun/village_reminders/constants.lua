@@ -11,7 +11,8 @@ local constants = {
     "オトモ広場",
     "集会所",
     "集会所 準備エリア",
-    "修練場"
+    "修練場",
+    "エルガド"
   },
   -- Module Labels
   ARGOSY_LABEL = "Argosy",

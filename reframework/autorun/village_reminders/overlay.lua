@@ -206,11 +206,20 @@ function overlay.draw()
   end
 
   if config.get_cohoot_nest_enabled() then
-    local uncollected, max_uncollected = cohoot_nest.get_status()
+    local uncollected_kamura, uncollected_elgado, max_uncollected = cohoot_nest.get_status()
+    local module_reminders = {}
 
-    if uncollected > config.get_cohoot_nest_uncollected() then
-      max_width = insert_reminder(reminders, constants.COHOOT_NEST_LABEL, {uncollected .. "/" .. max_uncollected .. " 未受領"}, max_width)
-      lines = lines + 2
+    if uncollected_kamura > config.get_cohoot_nest_uncollected() then
+      table.insert(module_reminders, uncollected_kamura .. "/" .. max_uncollected .. " カムラの里にて未受領")
+    end
+
+    if uncollected_elgado > config.get_cohoot_nest_uncollected() then
+      table.insert(module_reminders, uncollected_elgado .. "/" .. max_uncollected .. " エルガドにて未受領")
+    end
+
+    if #module_reminders > 0 then
+      max_width = insert_reminder(reminders, constants.COHOOT_NEST_LABEL, module_reminders, max_width)
+      lines = lines + #module_reminders + 1
     end
   end
 
@@ -281,7 +290,7 @@ function overlay.draw()
     if config.get_npcs_speech_bubble() then
       for i, speech_bubble in ipairs(status.speech_bubble_areas) do
         if speech_bubble then
-          table.insert(module_reminders, constants.VILLAGE_AREA_LABELS[i] .. "に話をしたい人がいるようです。" )
+          table.insert(module_reminders, (i <= #constants.VILLAGE_AREA_LABELS and constants.VILLAGE_AREA_LABELS[i] or "Unknown Area " .. i) .. "に話をしたい人がいるようです。")
         end
       end
     end
