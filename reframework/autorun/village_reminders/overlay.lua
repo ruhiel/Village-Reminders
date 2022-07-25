@@ -290,7 +290,7 @@ function overlay.draw()
     if config.get_npcs_speech_bubble() then
       for i, speech_bubble in ipairs(status.speech_bubble_areas) do
         if speech_bubble then
-          table.insert(module_reminders, (i <= #constants.VILLAGE_AREA_LABELS and constants.VILLAGE_AREA_LABELS[i] or "Unknown Area " .. i) .. "に話をしたい人がいるようです。")
+          table.insert(module_reminders, (i <= #constants.VILLAGE_AREA_LABELS and constants.VILLAGE_AREA_LABELS[i] or "不明なエリア " .. i) .. "に話をしたい人がいるようです。")
         end
       end
     end
