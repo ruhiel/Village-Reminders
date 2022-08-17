@@ -23,7 +23,20 @@ local max_training_otomo_num_field = otomo_dojo_facility_type_def:get_field("Max
 local training_report_type_def = sdk.find_type_definition(TRAINING_REPORT_TYPE)
 local get_after_lv_method = training_report_type_def:get_method("get_AfterLv")
 
--- Functions
+-- Module
+local buddy_dojo = {
+  status = {
+    boosts = 0,
+    buddies = 0,
+    max_boosts = 10,
+    max_buddies = 6,
+    maxed_buddies = 0,
+    max_level = 50,
+    max_rounds = 10,
+    rounds = 0
+  }
+}
+
 local function count_maxed_buddies(training_otomo_data_list, training_otomo_data_list_size, training_report_list, otomo_max_level)
   local buddies = 0
 
@@ -39,40 +52,35 @@ local function count_maxed_buddies(training_otomo_data_list, training_otomo_data
   return buddies
 end
 
--- Module
-local buddy_dojo = {}
-
-function buddy_dojo.get_status()
+local function update()
   local otomo_data_manager = sdk.get_managed_singleton(OTOMO_DATA_MANAGER_TYPE)
   local otomo_dojo_facility = sdk.get_managed_singleton(OTOMO_DOJO_FACILITY_TYPE)
 
-  if not otomo_data_manager or not otomo_dojo_facility then
-    return {
-      boosts = 0,
-      buddies = 0,
-      max_boosts = 0,
-      max_buddies = 0,
-      maxed_buddies = 0,
-      max_level = 0,
-      max_rounds = 0,
-      rounds = 0
-    }
+  if otomo_data_manager then
+    buddy_dojo.status.max_level = get_ot_lv_cap_method:call(otomo_data_manager)
   end
 
-  local otomo_max_level = get_ot_lv_cap_method:call(otomo_data_manager)
-  local training_otomo_data_list = get_training_otomo_data_list_method:call(otomo_dojo_facility)
-  local training_otomo_data_list_size = training_otomo_data_list:call("get_Count")
-  local training_report_list = get_training_report_list_method:call(otomo_dojo_facility)
-  return {
-    boosts = get_boost_num_method:call(otomo_dojo_facility),
-    buddies = training_otomo_data_list_size,
-    max_boosts = get_max_boost_num_method:call(otomo_dojo_facility),
-    max_buddies = max_training_otomo_num_field:get_data(otomo_dojo_facility),
-    maxed_buddies = count_maxed_buddies(training_otomo_data_list, training_otomo_data_list_size, training_report_list, otomo_max_level),
-    max_level = otomo_max_level,
-    max_rounds = get_max_charge_num_method:call(otomo_dojo_facility),
-    rounds = get_charge_num_method:call(otomo_dojo_facility)
-  }
+  if otomo_dojo_facility then
+    local training_otomo_data_list = get_training_otomo_data_list_method:call(otomo_dojo_facility)
+    local training_otomo_data_list_size = training_otomo_data_list:call("get_Count")
+    local training_report_list = get_training_report_list_method:call(otomo_dojo_facility)
+    buddy_dojo.status.boosts = get_boost_num_method:call(otomo_dojo_facility)
+    buddy_dojo.status.buddies = training_otomo_data_list_size
+    buddy_dojo.status.max_boosts = get_max_boost_num_method:call(otomo_dojo_facility)
+    buddy_dojo.status.max_buddies = max_training_otomo_num_field:get_data(otomo_dojo_facility)
+    buddy_dojo.status.maxed_buddies = count_maxed_buddies(training_otomo_data_list, training_otomo_data_list_size, training_report_list, buddy_dojo.status.max_level)
+    buddy_dojo.status.max_rounds = get_max_charge_num_method:call(otomo_dojo_facility)
+    buddy_dojo.status.rounds = get_charge_num_method:call(otomo_dojo_facility)
+  end
+end
+
+function buddy_dojo.init()
+  update()
+end
+
+-- TODO Hook on Dojo GUI close instead
+function buddy_dojo.on_reset_speech()
+  update()
 end
 
 return buddy_dojo
