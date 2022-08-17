@@ -24,7 +24,17 @@ local get_alchemy_method = facility_data_manager_type_def:get_method("getAlchemy
 local reserve_info_type_def = sdk.find_type_definition(RESERVE_INFO_TYPE)
 local get_reserve_status_method = reserve_info_type_def:get_method("getReserveStatus")
 
--- Functions
+-- Module
+local melding_pot = {
+  status = {
+    active = false,
+    max_orders = 10,
+    max_uncollected = 70,
+    orders = 0,
+    uncollected = 0
+  }
+}
+
 local function count_non_empty_inventory(inventory_list, inventory_list_count)
   local non_empty = 0
 
@@ -53,25 +63,33 @@ local function is_melding_active(reserve_info_list, max_reserve_num)
   return false
 end
 
--- Module
-local melding_pot = {}
-
-function melding_pot.get_status()
+local function update()
   local facility_data_manager = sdk.get_managed_singleton(FACILITY_DATA_MANAGER_TYPE)
 
   if not facility_data_manager then
-    return 0, 0, 0, 0
+    return
   end
 
   local alchemy = get_alchemy_method:call(facility_data_manager)
   local alchemy_function = get_function_method:call(alchemy)
   local remaining_slot_num = get_remaining_slot_num:call(alchemy_function)
   local max_reserve_num = get_max_reserve_num_method:call(alchemy_function)
-  local is_melding_active = is_melding_active(get_reserved_info_list:call(alchemy_function), max_reserve_num)
   local inventory_list = get_inventory_list_method:call(alchemy_function)
   local inventory_list_count = inventory_list:call("get_Count")
-  local non_empty = count_non_empty_inventory(inventory_list, inventory_list_count)
-  return is_melding_active, max_reserve_num - remaining_slot_num, max_reserve_num, non_empty, inventory_list_count
+  melding_pot.status.active = is_melding_active(get_reserved_info_list:call(alchemy_function), max_reserve_num)
+  melding_pot.status.max_orders = max_reserve_num
+  melding_pot.status.max_uncollected = inventory_list_count
+  melding_pot.status.orders = max_reserve_num - remaining_slot_num
+  melding_pot.status.uncollected = count_non_empty_inventory(inventory_list, inventory_list_count)
+end
+
+function melding_pot.init()
+  update()
+end
+
+-- TODO Hook on Melding Pot GUI close instead
+function melding_pot.on_reset_speech()
+  update()
 end
 
 return melding_pot

@@ -6,29 +6,57 @@ local constants = {
   BOTTOM_RIGHT_ANCHOR = 4,
   -- Enums
   VILLAGE_AREA_LABELS = {
-    "カムラの里",
-    "自宅",
+    "カムラの里 たたら場前",
     "オトモ広場",
-    "集会所",
-    "集会所 準備エリア",
     "修練場",
-    "エルガド"
+    "自宅",
+    "カムラの里 門前",
+    "カムラの里 集会所前",
+    "集会所 準備エリア",
+    "集会所",
+    "観測拠点 中央広場",
+    "騎士団指揮所",
+    "茶屋前",
+    "船着き場",
+    "自室",
+    "マーケット"
   },
   -- Module Labels
   ARGOSY_LABEL = "Argosy",
   BUDDY_DOJO_LABEL = "Buddy Dojo",
   COHOOT_NEST_LABEL = "Cohoot Nest",
+  ITEMS_LABEL = "Items",
   MARKET_LABEL = "Market & Guild Store",
   MELDING_POT_LABEL = "Melding Pot",
   MEOWCENARIES_LABEL = "Meowcenaries",
   NPCS_LABEL = "NPCs",
-  SUBQUESTS_LABEL = "Subquests"
+  SUBQUESTS_LABEL = "Subquests",
+  -- Rare Finds
+  RARE_FINDS_ITEMS = {
+    "ベルナストーン",
+    "強走薬",
+    "ドンドルマリン",
+    "閃光玉",
+    "落陽草の花",
+    "ドスキレアジ",
+    "ケルビの角",
+    "ロックラック鉱",
+    "ミナガルデナイト",
+    "アルビノエキス",
+    "落とし穴",
+    "シビレ罠",
+    "音爆弾",
+    "サシミウオ",
+    "バルバレクォーツ",
+    "キレアジ"
+  }
 }
 
 constants.MODULE_LABELS = {
   constants.ARGOSY_LABEL,
   constants.BUDDY_DOJO_LABEL,
   constants.COHOOT_NEST_LABEL,
+  constants.ITEMS_LABEL,
   constants.MARKET_LABEL,
   constants.MELDING_POT_LABEL,
   constants.MEOWCENARIES_LABEL,
@@ -40,7 +68,8 @@ constants.MODULE_LABELS_JP = {
   "交易船",
   "オトモ道場",
   "フクズクの巣",
-  "雑貨屋とギルドストア",
+  "雑貨屋",
+  "マーケット",
   "マカ錬金",
   "オトモ隠密隊",
   "NPC",

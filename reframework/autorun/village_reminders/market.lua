@@ -15,18 +15,42 @@ local item_shop_facility_type_def = sdk.find_type_definition(ITEM_SHOP_FACILITY_
 local get_item_lot_func_method = item_shop_facility_type_def:get_method("get_ItemLotFunc")
 
 -- Module
-local market = {}
+local market = {
+  status = {
+    lottery = false,
+    sale = false
+  }
+}
 
-function market.get_status()
+local function update_lottery(facility_data_manager)
+  local item_shop = get_item_shop_method:call(facility_data_manager)
+  local item_lot_func = get_item_lot_func_method:call(item_shop)
+  market.status.lottery = market.status.sale and not get_lot_event_done_flag_method:call(item_lot_func)
+end
+
+local function update_sale(facility_data_manager)
+  market.status.sale = is_sale_method:call(facility_data_manager)
+end
+
+function market.init()
   local facility_data_manager = sdk.get_managed_singleton(FACILITY_DATA_MANAGER_TYPE)
 
   if not facility_data_manager then
-    return false, false
+    return
   end
 
-  local item_shop = get_item_shop_method:call(facility_data_manager)
-  local item_lot_func = get_item_lot_func_method:call(item_shop)
-  return is_sale_method:call(facility_data_manager), get_lot_event_done_flag_method:call(item_lot_func)
+  update_sale(facility_data_manager)
+  update_lottery(facility_data_manager)
+end
+
+function market.on_reset_speech()
+  local facility_data_manager = sdk.get_managed_singleton(FACILITY_DATA_MANAGER_TYPE)
+
+  if not facility_data_manager then
+    return
+  end
+
+  update_lottery(facility_data_manager)
 end
 
 return market

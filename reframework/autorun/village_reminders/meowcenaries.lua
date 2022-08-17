@@ -8,16 +8,33 @@ local get_now_step_count_method = otomo_spy_unit_manager_type_def:get_method("ge
 local step_count_in_route_field = otomo_spy_unit_manager_type_def:get_field("StepCountInRoute")
 
 -- Module
-local meowcenaries = {}
+local meowcenaries = {
+  status = {
+    operating = false,
+    step = 0,
+    steps = 5
+  }
+}
 
-function meowcenaries.get_status()
+local function update()
   local otomo_spy_unit_manager = sdk.get_managed_singleton(OTOMO_SPY_UNIT_MANAGER_TYPE)
 
   if not otomo_spy_unit_manager then
-    return false, 0, 0
+    return
   end
 
-  return get_is_operating_method:call(otomo_spy_unit_manager), get_now_step_count_method:call(otomo_spy_unit_manager), step_count_in_route_field:get_data(otomo_spy_unit_manager)
+  meowcenaries.status.operating = get_is_operating_method:call(otomo_spy_unit_manager)
+  meowcenaries.status.step = get_now_step_count_method:call(otomo_spy_unit_manager)
+  meowcenaries.status.steps = step_count_in_route_field:get_data(otomo_spy_unit_manager)
+end
+
+function meowcenaries.init()
+  update()
+end
+
+-- TODO Hook Meowcenaries GUI close instead
+function meowcenaries.on_reset_speech()
+  update()
 end
 
 return meowcenaries
