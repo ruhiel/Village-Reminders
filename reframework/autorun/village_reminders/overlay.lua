@@ -153,7 +153,7 @@ local function draw_base_overlay()
       for _, stocked_item in ipairs(status.exchange.rare_finds) do
         for _, reminder_item in ipairs(rare_finds) do
           if (string.lower(stocked_item) == string.lower(reminder_item)) then
-            table.insert(module_reminders, tostring(stocked_item) .. " ストック")
+            table.insert(module_reminders, constants.RARE_FINDS_ITEMS_JP[tostring(stocked_item)] .. " 交易船で入手可能")
             break
           end
         end
@@ -215,7 +215,7 @@ local function draw_base_overlay()
     local module_reminders = {}
 
     if config.get_items_dirty_pouch() and status.dirty_pouch then
-      table.insert(module_reminders, "Check Item Pouch")
+      table.insert(module_reminders, "補充されていないアイテムがあります。")
     end
 
     if #module_reminders > 0 then
@@ -309,11 +309,11 @@ local function draw_base_overlay()
     local module_reminders = {}
 
     if status.active < config.get_subquests_active_below() then
-      table.insert(module_reminders, status.active .. "/" .. status.selectable .. " 個受注")
+      table.insert(module_reminders, status.active .. "/" .. status.selectable .. " 個受注中")
     end
 
     if status.completed > config.get_subquests_completed_above() then
-      table.insert(module_reminders, status.completed .. " 個完了")
+      table.insert(module_reminders, status.completed .. " 個報告可能")
     end
 
     if #module_reminders > 0 then

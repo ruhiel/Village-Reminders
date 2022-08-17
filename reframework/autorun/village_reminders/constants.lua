@@ -33,22 +33,22 @@ local constants = {
   SUBQUESTS_LABEL = "Subquests",
   -- Rare Finds
   RARE_FINDS_ITEMS = {
-    "ベルナストーン",
-    "強走薬",
-    "ドンドルマリン",
-    "閃光玉",
-    "落陽草の花",
-    "ドスキレアジ",
-    "ケルビの角",
-    "ロックラック鉱",
-    "ミナガルデナイト",
-    "アルビノエキス",
-    "落とし穴",
-    "シビレ罠",
-    "音爆弾",
-    "サシミウオ",
-    "バルバレクォーツ",
-    "キレアジ"
+    "Bhernastone",
+    "DashJuice",
+    "Dundormarin",
+    "FlashBomb",
+    "GloamgrassBud",
+    "GreatWhetfish",
+    "KelbiHorn",
+    "LocLacOre",
+    "Minegardenite",
+    "PaleExtract",
+    "PitfallTrap",
+    "ShockTrap",
+    "SonicBomb",
+    "Sushifish",
+    "ValHabarQuartz",
+    "Whetfish"
   }
 }
 
@@ -74,6 +74,25 @@ constants.MODULE_LABELS_JP = {
   "オトモ隠密隊",
   "NPC",
   "フリーサイドクエスト"
+}
+
+constants.RARE_FINDS_ITEMS_JP = {
+  Bhernastone = "ベルナストーン",
+  DashJuice = "強走薬",
+  Dundormarin = "ドンドルマリン",
+  FlashBomb = "閃光玉",
+  GloamgrassBud = "落陽草の花",
+  GreatWhetfish = "ドスキレアジ",
+  KelbiHorn = "ケルビの角",
+  LocLacOre = "ロックラック鉱",
+  Minegardenite = "ミナガルデナイト",
+  PaleExtract = "アルビノエキス",
+  PitfallTrap = "落とし穴",
+  ShockTrap = "シビレ罠",
+  SonicBomb = "音爆弾",
+  Sushifish = "サシミウオ",
+  ValHabarQuartz = "バルバレクォーツ",
+  Whetfish = "キレアジ"
 }
 
 return constants
