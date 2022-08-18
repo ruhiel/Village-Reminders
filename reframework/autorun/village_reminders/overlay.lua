@@ -215,7 +215,7 @@ local function draw_base_overlay()
     local module_reminders = {}
 
     if config.get_items_dirty_pouch() and status.dirty_pouch then
-      table.insert(module_reminders, "補充されていないアイテムがあります。")
+      table.insert(module_reminders, "補充されていないアイテムがあります")
     end
 
     if #module_reminders > 0 then
@@ -293,7 +293,7 @@ local function draw_base_overlay()
     if config.get_npcs_speech_bubble() then
       for i, speech_bubble in ipairs(status.speech_bubble_areas) do
         if speech_bubble then
-          table.insert(module_reminders, (constants.VILLAGE_AREA_LABELS[i] or ("不明なエリア " .. i)) .. "に話をしたい人がいるようです。")
+          table.insert(module_reminders, (constants.VILLAGE_AREA_LABELS[i] or ("不明なエリア " .. i)) .. "に話をしたい人がいるようです")
         end
       end
     end
