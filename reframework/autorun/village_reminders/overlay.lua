@@ -107,10 +107,10 @@ local function draw_overlay(max_width, lines, reminders, overlay_anchor, overlay
   end
 end
 
-local function get_reminder_item_jp(item)
-  for i,e in ipairs(constants.RARE_FINDS_ITEMS_JP) do
-    if (item == e[0]) then
-      return e[1]
+local function get_reminder_index(item)
+  for i,e in ipairs(constants.RARE_FINDS_ITEMS) do
+    if (item == e) then
+      return i
     end
   end
 end
@@ -160,7 +160,8 @@ local function draw_base_overlay()
     if rare_finds then
       for _, stocked_item in ipairs(status.exchange.rare_finds) do
         for _, reminder_item in ipairs(rare_finds) do
-          if (stocked_item == constants.RARE_FINDS_ITEMS_JP[_]) then
+          idx = get_reminder_index(reminder_item)
+          if (stocked_item == constants.RARE_FINDS_ITEMS_JP[idx]) then
             table.insert(module_reminders, stocked_item .. " 掘り出し物で交換可能")
             break
           end
