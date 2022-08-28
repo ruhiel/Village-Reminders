@@ -34,20 +34,20 @@ local constants = {
   -- Rare Finds
   RARE_FINDS_ITEMS = {
     "Bhernastone",
-    "DashJuice",
+    "Dash Juice",
     "Dundormarin",
-    "FlashBomb",
-    "GloamgrassBud",
-    "GreatWhetfish",
-    "KelbiHorn",
-    "LocLacOre",
+    "Flash Bomb",
+    "Gloamgrass Bud",
+    "Great Whetfish",
+    "Kelbi Horn",
+    "Loc Lac Ore",
     "Minegardenite",
-    "PaleExtract",
-    "PitfallTrap",
-    "ShockTrap",
-    "SonicBomb",
+    "Pale Extract",
+    "Pitfall Trap",
+    "Shock Trap",
+    "Sonic Bomb",
     "Sushifish",
-    "ValHabarQuartz",
+    "Val Habar Quartz",
     "Whetfish"
   }
 }
@@ -77,22 +77,22 @@ constants.MODULE_LABELS_JP = {
 }
 
 constants.RARE_FINDS_ITEMS_JP = {
-  Bhernastone = "ベルナストーン",
-  DashJuice = "強走薬",
-  Dundormarin = "ドンドルマリン",
-  FlashBomb = "閃光玉",
-  GloamgrassBud = "落陽草の花",
-  GreatWhetfish = "ドスキレアジ",
-  KelbiHorn = "ケルビの角",
-  LocLacOre = "ロックラック鉱",
-  Minegardenite = "ミナガルデナイト",
-  PaleExtract = "アルビノエキス",
-  PitfallTrap = "落とし穴",
-  ShockTrap = "シビレ罠",
-  SonicBomb = "音爆弾",
-  Sushifish = "サシミウオ",
-  ValHabarQuartz = "バルバレクォーツ",
-  Whetfish = "キレアジ"
+  "ベルナストーン",
+  "強走薬",
+  "ドンドルマリン",
+  "閃光玉",
+  "落陽草の花",
+  "ドスキレアジ",
+  "ケルビの角",
+  "ロックラック鉱",
+  "ミナガルデナイト",
+  "アルビノエキス",
+  "落とし穴",
+  "シビレ罠",
+  "音爆弾",
+  "サシミウオ",
+  "バルバレクォーツ",
+  "キレアジ"
 }
 
 return constants

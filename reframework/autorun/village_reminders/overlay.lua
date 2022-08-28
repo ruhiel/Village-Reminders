@@ -107,6 +107,14 @@ local function draw_overlay(max_width, lines, reminders, overlay_anchor, overlay
   end
 end
 
+local function get_reminder_item_jp(item)
+  for i,e in ipairs(constants.RARE_FINDS_ITEMS_JP) do
+    if (item == e[0]) then
+      return e[1]
+    end
+  end
+end
+
 local function draw_base_overlay()
   if not DEBUG and game.is_reserving_gui() then
     return
@@ -152,8 +160,8 @@ local function draw_base_overlay()
     if rare_finds then
       for _, stocked_item in ipairs(status.exchange.rare_finds) do
         for _, reminder_item in ipairs(rare_finds) do
-          if (string.lower(stocked_item) == string.lower(reminder_item)) then
-            table.insert(module_reminders, constants.RARE_FINDS_ITEMS_JP[tostring(stocked_item)] .. " 交易船で入手可能")
+          if (stocked_item == constants.RARE_FINDS_ITEMS_JP[_]) then
+            table.insert(module_reminders, stocked_item .. " 掘り出し物で交換可能")
             break
           end
         end
