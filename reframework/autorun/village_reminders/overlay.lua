@@ -92,8 +92,8 @@ local function draw_overlay(max_width, lines, reminders, overlay_anchor, overlay
 
   for i = 1, total_modules do
     local _module = DEBUG and i == 1 and DEBUG_LABEL or constants.MODULE_LABELS[module_order[i]]
-    local module_reminders = reminders[_module]
     local _module_jp = DEBUG and i == 1 and DEBUG_LABEL or constants.MODULE_LABELS_JP[module_order[i]]
+    local module_reminders = reminders[_module]
 
     if module_reminders ~= nil then
       d2d.text(bold_font, _module_jp, left_x + padding, top_y + (font_size + line_spacing) * (line - 1) + padding - font_offset_y, foreground_color)
@@ -103,14 +103,6 @@ local function draw_overlay(max_width, lines, reminders, overlay_anchor, overlay
         d2d.text(font, reminder, left_x + padding + indent, top_y + (font_size + line_spacing) * (line - 1) + padding - font_offset_y, foreground_color)
         line = line + 1
       end
-    end
-  end
-end
-
-local function get_reminder_index(item)
-  for i,e in ipairs(constants.RARE_FINDS_ITEMS) do
-    if (item == e) then
-      return i
     end
   end
 end
@@ -146,11 +138,17 @@ local function draw_base_overlay()
         table.insert(module_reminders, prefix .. "待機中")
       end
 
-      if request.uncollected > config.get_argosy_uncollected_above() then
+      if
+        config.get_argosy_uncollected_mode() == constants.ALWAYS_REMINDER_MODE or
+        (config.get_argosy_uncollected_mode() == constants.THRESHOLD_REMINDER_MODE and request.uncollected > config.get_argosy_uncollected_above())
+      then
         table.insert(module_reminders, prefix .. request.uncollected .. "/" .. request.max_uncollected .. " 未受領")
       end
 
-      if not request.idle and request.skill_duration < config.get_argosy_skill_duration_below() then
+      if
+        config.get_argosy_skill_duration_mode() == constants.ALWAYS_REMINDER_MODE or
+        (config.get_argosy_skill_duration_mode() == constants.THRESHOLD_REMINDER_MODE and not request.idle and request.skill_duration < config.get_argosy_skill_duration_below())
+      then
         table.insert(module_reminders, prefix .. request.skill_duration .. "/" .. request.max_skill_duration .. " 交渉術")
       end
     end
@@ -160,9 +158,8 @@ local function draw_base_overlay()
     if rare_finds then
       for _, stocked_item in ipairs(status.exchange.rare_finds) do
         for _, reminder_item in ipairs(rare_finds) do
-          idx = get_reminder_index(reminder_item)
-          if (stocked_item == constants.RARE_FINDS_ITEMS_JP[idx]) then
-            table.insert(module_reminders, stocked_item .. " 掘り出し物で交換可能")
+          if stocked_item == reminder_item then
+            table.insert(module_reminders, constants.RARE_FINDS_ITEMS_JP[stocked_item] .. " 掘り出し物で交換可能")
             break
           end
         end
@@ -179,19 +176,31 @@ local function draw_base_overlay()
     local status = buddy_dojo.status
     local module_reminders = {}
 
-    if status.rounds < config.get_buddy_dojo_rounds_below() then
+    if
+      config.get_buddy_dojo_rounds_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_buddy_dojo_rounds_mode() == constants.THRESHOLD_REMINDER_MODE and status.rounds < config.get_buddy_dojo_rounds_below())
+    then
       table.insert(module_reminders, status.rounds .. "/" .. status.max_rounds .. " 回")
     end
 
-    if status.rounds > 0 and status.boosts < config.get_buddy_dojo_boosts_below() then
+    if
+      config.get_buddy_dojo_boosts_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_buddy_dojo_boosts_mode() == constants.THRESHOLD_REMINDER_MODE and status.rounds > 0 and status.boosts < config.get_buddy_dojo_boosts_below())
+    then
       table.insert(module_reminders, "ブースト " .. status.boosts .. "/" .. status.max_boosts .. " 回")
     end
 
-    if status.buddies < config.get_buddy_dojo_buddies_below() then
+    if
+      config.get_buddy_dojo_buddies_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_buddy_dojo_buddies_mode() == constants.THRESHOLD_REMINDER_MODE and status.buddies < config.get_buddy_dojo_buddies_below())
+    then
       table.insert(module_reminders, status.buddies .. "/" .. status.max_buddies .. " 匹")
     end
 
-    if status.maxed_buddies > config.get_buddy_dojo_maxed_buddies_above() then
+    if
+      config.get_buddy_dojo_maxed_buddies_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_buddy_dojo_maxed_buddies_mode() == constants.THRESHOLD_REMINDER_MODE and status.maxed_buddies > config.get_buddy_dojo_maxed_buddies_above())
+    then
       table.insert(module_reminders, status.maxed_buddies .. " 匹のオトモが最大レベルになりました" .. " (" .. status.max_level .. ")")
     end
 
@@ -205,11 +214,19 @@ local function draw_base_overlay()
     local status = cohoot_nest.status
     local module_reminders = {}
 
-    if status.uncollected_kamura > config.get_cohoot_nest_uncollected_above() then
+    if
+      config.get_cohoot_nest_uncollected_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_cohoot_nest_uncollected_mode() == constants.THRESHOLD_REMINDER_MODE and status.uncollected_kamura > config.get_cohoot_nest_uncollected_above())
+    then
       table.insert(module_reminders, "カムラの里にて " .. status.uncollected_kamura .. "/" .. status.max_uncollected .. " 個未受領")
     end
 
-    if status.uncollected_elgado > config.get_cohoot_nest_uncollected_above() then
+    if
+      status.uncollected_elgado >= 0 and (
+        config.get_cohoot_nest_uncollected_mode() == constants.ALWAYS_REMINDER_MODE or
+        (config.get_cohoot_nest_uncollected_mode() == constants.THRESHOLD_REMINDER_MODE and status.uncollected_elgado > config.get_cohoot_nest_uncollected_above())
+      )
+    then
       table.insert(module_reminders, "エルガドにて " .. status.uncollected_elgado .. "/" .. status.max_uncollected .. " 個未受領")
     end
 
@@ -259,11 +276,17 @@ local function draw_base_overlay()
       table.insert(module_reminders, "待機")
     end
 
-    if status.orders < config.get_melding_pot_orders_below() then
+    if
+      config.get_melding_pot_orders_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_melding_pot_orders_mode() == constants.THRESHOLD_REMINDER_MODE and status.orders < config.get_melding_pot_orders_below())
+    then
       table.insert(module_reminders, status.orders .. "/" .. status.max_orders .. " 個依頼")
     end
 
-    if status.uncollected > config.get_melding_pot_uncollected_above() then
+    if
+      config.get_melding_pot_uncollected_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_melding_pot_uncollected_mode() == constants.THRESHOLD_REMINDER_MODE and status.uncollected > config.get_melding_pot_uncollected_above())
+    then
       table.insert(module_reminders, status.uncollected .. "/" .. status.max_uncollected .. " 未受領")
     end
 
@@ -281,7 +304,10 @@ local function draw_base_overlay()
       table.insert(module_reminders, "待機")
     end
 
-    if status.step > config.get_meowcenaries_step_above() then
+    if
+      config.get_meowcenaries_step_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_meowcenaries_step_mode() == constants.THRESHOLD_REMINDER_MODE and status.step > config.get_meowcenaries_step_above())
+    then
       table.insert(module_reminders, "調査ルート " .. status.step .. "/" .. status.steps)
     end
 
@@ -302,7 +328,7 @@ local function draw_base_overlay()
     if config.get_npcs_speech_bubble() then
       for i, speech_bubble in ipairs(status.speech_bubble_areas) do
         if speech_bubble then
-          table.insert(module_reminders, (constants.VILLAGE_AREA_LABELS[i] or ("不明なエリア " .. i)) .. "に話をしたい人がいるようです")
+          table.insert(module_reminders, (constants.VILLAGE_AREA_LABELS[i] or ("Unknown Area " .. i)) .. "に話をしたい人がいるようです")
         end
       end
     end
@@ -317,11 +343,17 @@ local function draw_base_overlay()
     local status = subquests.base_status
     local module_reminders = {}
 
-    if status.active < config.get_subquests_active_below() then
+    if
+      config.get_subquests_active_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_subquests_active_mode() == constants.THRESHOLD_REMINDER_MODE and status.active < config.get_subquests_active_below())
+    then
       table.insert(module_reminders, status.active .. "/" .. status.selectable .. " 個受注中")
     end
 
-    if status.completed > config.get_subquests_completed_above() then
+    if
+      config.get_subquests_completed_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_subquests_completed_mode() == constants.THRESHOLD_REMINDER_MODE and status.completed > config.get_subquests_completed_above())
+    then
       table.insert(module_reminders, status.completed .. " 個報告可能")
     end
 

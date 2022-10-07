@@ -1,8 +1,4 @@
--- Imports
-local lookup = require("village_reminders.lookup")
-
 -- Constants
-local CONTENTS_ID_DATA_MANAGER_TYPE = "snow.data.ContentsIdDataManager"
 local EXCHANGE_FUNC_TYPE = "snow.facility.tradeCenter.ExchangeFunc"
 local EXCHANGE_ITEM_DATA_TYPE = "snow.facility.tradeCenter.ExchangeItemData"
 local GUI_TRADE_POINT_ITEM_TYPE = "snow.gui.GuiTradePointItem"
@@ -81,14 +77,13 @@ local function update_exchange(trade_center_facility)
   local exchange_func = get_exchange_func_method:call(trade_center_facility)
   local exchange_item_data_list = get_all_exchange_item_data_list_method:call(exchange_func)
   local exchange_item_data_list_size = exchange_item_data_list:get_size()
-  local contents_id_data_manager = sdk.get_managed_singleton(CONTENTS_ID_DATA_MANAGER_TYPE)
   local rare_finds = {}
 
   for i = 0, exchange_item_data_list_size - 1 do
     local exchange_item_data = exchange_item_data_list:get_element(i)
 
     if get_is_listable_method:call(exchange_item_data) and get_item_type_method:call(exchange_item_data) == 2 --[[Rare]] and get_stock_num_method:call(exchange_func, exchange_item_data) > 0 then
-      table.insert(rare_finds, lookup.get_item_name(contents_id_data_manager, get_item_id_method:call(exchange_item_data)))
+      table.insert(rare_finds, get_item_id_method:call(exchange_item_data))
     end
   end
 

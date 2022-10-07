@@ -1,4 +1,5 @@
 -- Constants
+local DLC_MANAGER_TYPE = "snow.DlcManager"
 local EVENT_MANAGER_TYPE = "snow.eventcut.EventManager"
 local GUI_MANAGER = "snow.gui.GuiManager"
 local NOW_LOADING_TYPE = "snow.NowLoading"
@@ -6,6 +7,9 @@ local SNOW_GAME_MANAGER_TYPE = "snow.SnowGameManager"
 local VILLAGE_AREA_MANAGER_TYPE = "snow.VillageAreaManager"
 
 -- Memo
+local dlc_manager_type_def = sdk.find_type_definition(DLC_MANAGER_TYPE)
+local is_mr_enabled_method = dlc_manager_type_def:get_method("isMREnabled")
+
 local event_manager_type_def = sdk.find_type_definition(EVENT_MANAGER_TYPE)
 local get_playing_method = event_manager_type_def:get_method("get_Playing")
 
@@ -68,6 +72,11 @@ function game.is_reserving_gui()
     is_calling_owl_method:call(gui_manager) or
     is_open_owl_menu_method:call(gui_manager)
   ) or false
+end
+
+function game.is_sunbreak_enabled()
+  local dlc_manager = sdk.get_managed_singleton(DLC_MANAGER_TYPE)
+  return dlc_manager and is_mr_enabled_method:call(dlc_manager) or false
 end
 
 return game

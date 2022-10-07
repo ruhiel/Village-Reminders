@@ -1,3 +1,6 @@
+-- Imports
+local game = require("village_reminders.game")
+
 -- Constants
 local PROGRESS_OWL_NEST_MANAGER_TYPE = "snow.progress.ProgressOwlNestManager"
 local PROGRESS_OWL_NEST_SAVE_DATA_TYPE = "snow.progress.ProgressOwlNestSaveData"
@@ -31,7 +34,7 @@ local function update()
   local save_data = get_save_data_method:call(progress_owl_nest_manager)
   cohoot_nest.status.max_uncollected = stack_item_count_field:get_data(progress_owl_nest_manager)
   cohoot_nest.status.uncollected_kamura = stack_count_field:get_data(save_data)
-  cohoot_nest.status.uncollected_elgado = stack_count_2_field:get_data(save_data)
+  cohoot_nest.status.uncollected_elgado = game.is_sunbreak_enabled() and stack_count_2_field:get_data(save_data) or -1
 end
 
 function cohoot_nest.hook()
