@@ -8,6 +8,7 @@ local COMMERCIAL_STUFF_FACILITY_TYPE = "snow.data.CommercialStuffFacility"
 local FACILITY_DATA_MANAGER_TYPE = "snow.data.FacilityDataManager"
 local GUI_LOBBY_HUD_MAP_WINDOW_TYPE = "snow.gui.GuiLobbyHudMapWindow"
 local GUI_MANAGER_TYPE = "snow.gui.GuiManager"
+local SUNBREAK_SPEECH_BUBBLE_AREA_THRESHOLD = 9
 
 -- Memo
 local boolean_type_def = sdk.find_type_definition(BOOLEAN_TYPE)
@@ -39,7 +40,7 @@ local function update()
   local facility_data_manager = sdk.get_managed_singleton(FACILITY_DATA_MANAGER_TYPE)
   local gui_manager = sdk.get_managed_singleton(GUI_MANAGER_TYPE)
 
-  if facility_data_manager then
+  if game.is_sunbreak_enabled() and facility_data_manager then
     local commercial_stuff_facility = get_commercial_stuff_facility_method:call(facility_data_manager)
     npcs.status.commercial_stuff = get_can_obtain_item_method:call(commercial_stuff_facility) and get_commercial_stuff_id_method:call(commercial_stuff_facility) > 0
   end
@@ -50,7 +51,7 @@ local function update()
     local npc_balloon_visible = npc_balloon_visible_field:get_data(gui_lobby_hud_map_window):get_elements()
 
     for i, visible in ipairs(npc_balloon_visible) do
-      npcs.status.speech_bubble_areas[i] = m_value_field:get_data(visible)
+      npcs.status.speech_bubble_areas[i] = (i < SUNBREAK_SPEECH_BUBBLE_AREA_THRESHOLD or game.is_sunbreak_enabled()) and m_value_field:get_data(visible) or false
     end
   end
 end

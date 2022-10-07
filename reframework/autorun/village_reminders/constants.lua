@@ -33,23 +33,45 @@ local constants = {
   SUBQUESTS_LABEL = "Subquests",
   -- Rare Finds
   RARE_FINDS_ITEMS = {
-    "Bhernastone",
-    "Dash Juice",
-    "Dundormarin",
-    "Flash Bomb",
-    "Gloamgrass Bud",
-    "Great Whetfish",
-    "Kelbi Horn",
-    "Loc Lac Ore",
-    "Minegardenite",
-    "Pale Extract",
-    "Pitfall Trap",
-    "Shock Trap",
-    "Sonic Bomb",
-    "Sushifish",
-    "Val Habar Quartz",
-    "Whetfish"
-  }
+    [68158516] = "Bhernastone",
+    [68157913] = "Dash Juice",
+    [68158517] = "Dundormarin",
+    [68157603] = "Flash Bomb",
+    [68158148] = "Gloamgrass Bud",
+    [68158222] = "Great Whetfish",
+    [68157803] = "Kelbi Horn",
+    [68158518] = "Loc Lac Ore",
+    [68158520] = "Minegardenite",
+    [68157677] = "Pale Extract",
+    [68157563] = "Pitfall Trap",
+    [68157444] = "Shock Trap",
+    [68157933] = "Sonic Bomb",
+    [68157910] = "Sushifish",
+    [68158519] = "Val Habar Quartz",
+    [68157939] = "Whetfish"
+  },
+  RARE_FINDS_ORDER = {
+    68158516,
+    68157913,
+    68158517,
+    68157603,
+    68158148,
+    68158222,
+    68157803,
+    68158518,
+    68158520,
+    68157677,
+    68157563,
+    68157444,
+    68157933,
+    68157910,
+    68158519,
+    68157939
+  },
+  -- Reminder Modes
+  ALWAYS_REMINDER_MODE = 1,
+  THRESHOLD_REMINDER_MODE = 2,
+  NEVER_REMINDER_MODE = 3
 }
 
 constants.MODULE_LABELS = {

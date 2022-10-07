@@ -137,11 +137,17 @@ local function draw_base_overlay()
         table.insert(module_reminders, prefix .. "Idle")
       end
 
-      if request.uncollected > config.get_argosy_uncollected_above() then
+      if
+        config.get_argosy_uncollected_mode() == constants.ALWAYS_REMINDER_MODE or
+        (config.get_argosy_uncollected_mode() == constants.THRESHOLD_REMINDER_MODE and request.uncollected > config.get_argosy_uncollected_above())
+      then
         table.insert(module_reminders, prefix .. request.uncollected .. "/" .. request.max_uncollected .. " Uncollected")
       end
 
-      if not request.idle and request.skill_duration < config.get_argosy_skill_duration_below() then
+      if
+        config.get_argosy_skill_duration_mode() == constants.ALWAYS_REMINDER_MODE or
+        (config.get_argosy_skill_duration_mode() == constants.THRESHOLD_REMINDER_MODE and not request.idle and request.skill_duration < config.get_argosy_skill_duration_below())
+      then
         table.insert(module_reminders, prefix .. request.skill_duration .. "/" .. request.max_skill_duration .. " Skill Duration")
       end
     end
@@ -151,8 +157,8 @@ local function draw_base_overlay()
     if rare_finds then
       for _, stocked_item in ipairs(status.exchange.rare_finds) do
         for _, reminder_item in ipairs(rare_finds) do
-          if (string.lower(stocked_item) == string.lower(reminder_item)) then
-            table.insert(module_reminders, tostring(stocked_item) .. " Stocked")
+          if stocked_item == reminder_item then
+            table.insert(module_reminders, constants.RARE_FINDS_ITEMS[stocked_item] .. " Stocked")
             break
           end
         end
@@ -169,19 +175,31 @@ local function draw_base_overlay()
     local status = buddy_dojo.status
     local module_reminders = {}
 
-    if status.rounds < config.get_buddy_dojo_rounds_below() then
+    if
+      config.get_buddy_dojo_rounds_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_buddy_dojo_rounds_mode() == constants.THRESHOLD_REMINDER_MODE and status.rounds < config.get_buddy_dojo_rounds_below())
+    then
       table.insert(module_reminders, status.rounds .. "/" .. status.max_rounds .. " Rounds")
     end
 
-    if status.rounds > 0 and status.boosts < config.get_buddy_dojo_boosts_below() then
+    if
+      config.get_buddy_dojo_boosts_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_buddy_dojo_boosts_mode() == constants.THRESHOLD_REMINDER_MODE and status.rounds > 0 and status.boosts < config.get_buddy_dojo_boosts_below())
+    then
       table.insert(module_reminders, status.boosts .. "/" .. status.max_boosts .. " Boosts")
     end
 
-    if status.buddies < config.get_buddy_dojo_buddies_below() then
+    if
+      config.get_buddy_dojo_buddies_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_buddy_dojo_buddies_mode() == constants.THRESHOLD_REMINDER_MODE and status.buddies < config.get_buddy_dojo_buddies_below())
+    then
       table.insert(module_reminders, status.buddies .. "/" .. status.max_buddies .. " Buddies")
     end
 
-    if status.maxed_buddies > config.get_buddy_dojo_maxed_buddies_above() then
+    if
+      config.get_buddy_dojo_maxed_buddies_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_buddy_dojo_maxed_buddies_mode() == constants.THRESHOLD_REMINDER_MODE and status.maxed_buddies > config.get_buddy_dojo_maxed_buddies_above())
+    then
       table.insert(module_reminders, status.maxed_buddies .. " Max Level Budd" .. (status.maxed_buddies == 1 and "y" or "ies") .. " (" .. status.max_level .. ")")
     end
 
@@ -195,11 +213,19 @@ local function draw_base_overlay()
     local status = cohoot_nest.status
     local module_reminders = {}
 
-    if status.uncollected_kamura > config.get_cohoot_nest_uncollected_above() then
+    if
+      config.get_cohoot_nest_uncollected_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_cohoot_nest_uncollected_mode() == constants.THRESHOLD_REMINDER_MODE and status.uncollected_kamura > config.get_cohoot_nest_uncollected_above())
+    then
       table.insert(module_reminders, status.uncollected_kamura .. "/" .. status.max_uncollected .. " Uncollected in Kamura")
     end
 
-    if status.uncollected_elgado > config.get_cohoot_nest_uncollected_above() then
+    if
+      status.uncollected_elgado >= 0 and (
+        config.get_cohoot_nest_uncollected_mode() == constants.ALWAYS_REMINDER_MODE or
+        (config.get_cohoot_nest_uncollected_mode() == constants.THRESHOLD_REMINDER_MODE and status.uncollected_elgado > config.get_cohoot_nest_uncollected_above())
+      )
+    then
       table.insert(module_reminders, status.uncollected_elgado .. "/" .. status.max_uncollected .. " Uncollected in Elgado")
     end
 
@@ -249,11 +275,17 @@ local function draw_base_overlay()
       table.insert(module_reminders, "Idle")
     end
 
-    if status.orders < config.get_melding_pot_orders_below() then
+    if
+      config.get_melding_pot_orders_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_melding_pot_orders_mode() == constants.THRESHOLD_REMINDER_MODE and status.orders < config.get_melding_pot_orders_below())
+    then
       table.insert(module_reminders, status.orders .. "/" .. status.max_orders .. " Orders")
     end
 
-    if status.uncollected > config.get_melding_pot_uncollected_above() then
+    if
+      config.get_melding_pot_uncollected_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_melding_pot_uncollected_mode() == constants.THRESHOLD_REMINDER_MODE and status.uncollected > config.get_melding_pot_uncollected_above())
+    then
       table.insert(module_reminders, status.uncollected .. "/" .. status.max_uncollected .. " Uncollected")
     end
 
@@ -271,7 +303,10 @@ local function draw_base_overlay()
       table.insert(module_reminders, "Idle")
     end
 
-    if status.step > config.get_meowcenaries_step_above() then
+    if
+      config.get_meowcenaries_step_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_meowcenaries_step_mode() == constants.THRESHOLD_REMINDER_MODE and status.step > config.get_meowcenaries_step_above())
+    then
       table.insert(module_reminders, "Step " .. status.step .. "/" .. status.steps)
     end
 
@@ -307,11 +342,17 @@ local function draw_base_overlay()
     local status = subquests.base_status
     local module_reminders = {}
 
-    if status.active < config.get_subquests_active_below() then
+    if
+      config.get_subquests_active_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_subquests_active_mode() == constants.THRESHOLD_REMINDER_MODE and status.active < config.get_subquests_active_below())
+    then
       table.insert(module_reminders, status.active .. "/" .. status.selectable .. " Active")
     end
 
-    if status.completed > config.get_subquests_completed_above() then
+    if
+      config.get_subquests_completed_mode() == constants.ALWAYS_REMINDER_MODE or
+      (config.get_subquests_completed_mode() == constants.THRESHOLD_REMINDER_MODE and status.completed > config.get_subquests_completed_above())
+    then
       table.insert(module_reminders, status.completed .. " Completed")
     end
 
