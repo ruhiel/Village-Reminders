@@ -3,102 +3,102 @@ local constants = require("village_reminders.constants")
 
 -- Constants
 local ACTIVE_BELOW_PROPERTY = "activeBelow"
-local ACTIVE_LABEL = "Remind About Active"
+local ACTIVE_LABEL = "有効なクエストについてのリマインド"
 local ACTIVE_PROPERTY = "active"
-local ANCHOR_LABEL = "Anchor"
+local ANCHOR_LABEL = "アンカー"
 local ANCHORS = {
-  [constants.TOP_LEFT_ANCHOR] = "Top Left",
-  [constants.TOP_RIGHT_ANCHOR] = "Top Right",
-  [constants.BOTTOM_LEFT_ANCHOR] = "Bottom Left",
-  [constants.BOTTOM_RIGHT_ANCHOR] = "Bottom Right"
+  [constants.TOP_LEFT_ANCHOR] = "左上",
+  [constants.TOP_RIGHT_ANCHOR] = "右上",
+  [constants.BOTTOM_LEFT_ANCHOR] = "左下",
+  [constants.BOTTOM_RIGHT_ANCHOR] = "右下"
 }
 local ARGOSY_MODULE = "argosy"
-local BACKGROUND_LABEL = "Background"
+local BACKGROUND_LABEL = "背景色"
 local BACKGROUND_PROPERTY = "background"
 local BASE_ANCHOR_PROPERTY = "baseAnchor"
 local BASE_MIN_WIDTH_PROPERTY = "baseMinWidth"
 local BASE_X_PROPERTY = "baseX"
 local BASE_Y_PROPERTY = "baseY"
 local BOOSTS_BELOW_PROPERTY = "boostsBelow"
-local BOOSTS_LABEL = "Remind About Boosts"
+local BOOSTS_LABEL = "ブーストについてのリマインド"
 local BOOSTS_PROPERTY = "boosts"
 local BUDDIES_BELOW_PROPERTY = "buddiesBelow"
-local BUDDIES_LABEL = "Remind About Buddies"
+local BUDDIES_LABEL = "オトモについてのリマインド"
 local BUDDIES_PROPERTY = "buddies"
 local BUDDY_DOJO_MODULE = "buddyDojo"
 local COHOOT_NEST_MODULE = "cohootNest"
 local COLOR_EDIT_FLAGS = 1 << 3 --[[No Options]] | 1 << 7 --[[No Label]] | 1 << 16 --[[Alpha Bar]]
 local COMPLETED_ABOVE_PROPERTY = "completedAbove"
-local COMPLETED_LABEL = "Remind About Completed"
+local COMPLETED_LABEL = "完了したクエストについてのリマインド"
 local COMPLETED_PROPERTY = "completed"
-local DIRTY_POUCH_LABEL = "Remind When Item Pouch Not Checked"
+local DIRTY_POUCH_LABEL = "アイテムポーチが補充されていない場合のリマインド"
 local DIRTY_POUCH_PROPERTY = "dirtyPouch"
-local ENABLED_LABEL = "Enabled"
+local ENABLED_LABEL = "有効無効"
 local ENABLED_PROPERTY = "enabled"
 local FILE = "village_reminders/config.json"
-local FONT_SIZE_LABEL = "Font Size"
+local FONT_SIZE_LABEL = "フォントサイズ"
 local FONT_SIZE_PROPERTY = "fontSize"
-local FOREGROUND_LABEL = "Foreground"
+local FOREGROUND_LABEL = "前景色"
 local FOREGROUND_PROPERTY = "foreground"
 local GLOBAL_MODULE = "global"
-local IDLE_LABEL = "Remind When Idle"
+local IDLE_LABEL = "待機中のリマインド"
 local IDLE_PROPERTY = "idle"
-local INDENT_LABEL = "Indent"
+local INDENT_LABEL = "インデント"
 local INDENT_PROPERTY = "indent"
 local ITEMS_MODULE = "items"
 local LATEST_VERSION = "1.4.0"
-local LINE_SPACING_LABEL = "Line Spacing"
+local LINE_SPACING_LABEL = "行間"
 local LINE_SPACING_PROPERTY = "lineSpacing"
-local LOTTERY_LABEL = "Remind When Lottery Available"
+local LOTTERY_LABEL = "福引のリマインド"
 local LOTTERY_PROPERTY = "lottery"
 local MARKET_MODULE = "market"
 local MAXED_BUDDIES_ABOVE_PROPERTY = "maxedBuddiesAbove"
-local MAXED_BUDDIES_LABEL = "Remind About Max Level Buddies"
+local MAXED_BUDDIES_LABEL = "最大レベルに達したオトモについてのリマインド"
 local MAXED_BUDDIES_PROPERTY = "maxedBuddies"
 local MELDING_POT_MODULE = "meldingPot"
 local MEOWCENARIES_MODULE = "meowcenaries"
-local MIN_WIDTH_LABEL = "Min Width"
+local MIN_WIDTH_LABEL = "最低幅"
 local NPCS_MODULE = "npcs"
-local ORDER_LABEL = "Order"
+local ORDER_LABEL = "順序"
 local ORDER_PROPERTY = "order"
 local ORDERS_BELOW_PROPERTY = "ordersBelow"
-local ORDERS_LABEL = "Remind About Orders"
+local ORDERS_LABEL = "依頼についてのリマインド"
 local ORDERS_PROPERTY = "orders"
 local OVERLAY_MODULE = "overlay"
-local PADDING_LABEL = "Padding"
+local PADDING_LABEL = "パディング"
 local PADDING_PROPERTY = "padding"
 local QUEST_ANCHOR_PROPERTY = "questAnchor"
 local QUEST_MIN_WIDTH_PROPERTY = "questMinWidth"
-local QUEST_PROGRESS_LABEL = "Show Progress During Quests"
+local QUEST_PROGRESS_LABEL = "クエストの進行を表示"
 local QUEST_PROGRESS_PROPERTY = "showProgressDuringQuests"
 local QUEST_X_PROPERTY = "questX"
 local QUEST_Y_PROPERTY = "questY"
-local RARE_FINDS_LABEL = "Remind When Rare Finds Stocked"
+local RARE_FINDS_LABEL = "レア素材についてのリマインド"
 local RARE_FINDS_PROPERTY = "rareFinds"
 local REMINDER_MODES = {
-  [constants.ALWAYS_REMINDER_MODE] = "Always",
-  [constants.THRESHOLD_REMINDER_MODE] = "Conditional",
-  [constants.NEVER_REMINDER_MODE] = "Never"
+  [constants.ALWAYS_REMINDER_MODE] = "常にリマインド",
+  [constants.THRESHOLD_REMINDER_MODE] = "条件付きでリマインド",
+  [constants.NEVER_REMINDER_MODE] = "リマインドしない"
 }
 local ROUNDS_BELOW_PROPERTY = "roundsBelow"
-local ROUNDS_LABEL = "Remind About Rounds"
+local ROUNDS_LABEL = "回数についてのリマインド"
 local ROUNDS_PROPERTY = "rounds"
-local SALE_LABEL = "Remind When Sale"
+local SALE_LABEL = "セールのリマインド"
 local SALE_PROPERTY = "sale"
 local SKILL_DURATION_BELOW_PROPERTY = "skillDurationBelow"
-local SKILL_DURATION_LABEL = "Remind About Skill Duration"
+local SKILL_DURATION_LABEL = "交渉術についてのリマインド"
 local SKILL_DURATION_PROPERTY = "skillDuration"
 local STEP_ABOVE_PROPERTY = "stepAbove"
-local STEP_LABEL = "Remind About Step"
+local STEP_LABEL = "調査状況についてのリマインド"
 local STEP_PROPERTY = "step"
-local SOUVENIR_LABEL = "Remind When Pingarh the Sailor Has Souvenir"
+local SOUVENIR_LABEL = "船乗りのピンガルについてのリマインド"
 local SOUVENIR_PROPERTY = "souvenir"
-local SPEECH_BUBBLE_LABEL = "Remind When NPCs Have Speech Bubbles"
+local SPEECH_BUBBLE_LABEL = "話をしたいNPCについてのリマインド"
 local SPEECH_BUBBLE_PROPERTY = "speechBubble"
 local SUBQUESTS_MODULE = "subquests"
 local TITLE = "Village Reminders"
 local UNCOLLECTED_ABOVE_PROPERTY = "uncollectedAbove"
-local UNCOLLECTED_LABEL = "Remind About Uncollected"
+local UNCOLLECTED_LABEL = "未受領のリマインド"
 local UNCOLLECTED_PROPERTY = "uncollected"
 local VERSION_PROPERTY = "version"
 local X_LABEL = "X"
@@ -354,6 +354,23 @@ end
 local config = {}
 
 function config.draw()
+  local JP_FONT_NAME = "NotoSansJP-Regular.otf"
+  local JP_FONT_SIZE = 18
+  local CJK_GLYPH_RANGES = {
+      0x0020, 0x00FF, -- Basic Latin + Latin Supplement
+      0x2000, 0x206F, -- General Punctuation
+      0x3000, 0x30FF, -- CJK Symbols and Punctuations, Hiragana, Katakana
+      0x31F0, 0x31FF, -- Katakana Phonetic Extensions
+      0x4e00, 0x9FFF, -- CJK Ideograms
+      0xFF00, 0xFFEF, -- Half-width characters
+      0,
+  }
+  local font = imgui.load_font(JP_FONT_NAME, JP_FONT_SIZE, CJK_GLYPH_RANGES)
+
+  if font ~= nil then
+      imgui.push_font(font)
+  end
+
   if imgui.button(TITLE) then
     is_open = true
   end
@@ -361,18 +378,18 @@ function config.draw()
   if imgui.begin_window(TITLE, is_open) then
     local changed = false
 
-    if imgui.tree_node("Overlay") then
+    if imgui.tree_node("オーバーレイ") then
       imgui.new_line()
       local max_width, max_height = d2d.surface_size()
       changed = draw_slider_int(OVERLAY_MODULE, FONT_SIZE_PROPERTY, FONT_SIZE_LABEL, 4, 72) or changed
-      imgui.text("Note: Changes to font size require the mod to be restarted.")
+      imgui.text("注意: フォントサイズの変更には再起動が必要です。")
       imgui.new_line()
       changed = draw_slider_int(OVERLAY_MODULE, LINE_SPACING_PROPERTY, LINE_SPACING_LABEL, 0, 72) or changed
       changed = draw_slider_int(OVERLAY_MODULE, INDENT_PROPERTY, INDENT_LABEL, 0, 72) or changed
       changed = draw_slider_int(OVERLAY_MODULE, PADDING_PROPERTY, PADDING_LABEL, 0, 72) or changed
       imgui.new_line()
 
-      if imgui.tree_node("Position and Size (Base)") then
+      if imgui.tree_node("位置とサイズ(基本)") then
         changed = draw_combo(OVERLAY_MODULE, BASE_ANCHOR_PROPERTY, ANCHOR_LABEL, ANCHORS) or changed
         changed = draw_drag_int(OVERLAY_MODULE, BASE_X_PROPERTY, X_LABEL, 0, max_width) or changed
         changed = draw_drag_int(OVERLAY_MODULE, BASE_Y_PROPERTY, Y_LABEL, 0, max_height) or changed
@@ -382,7 +399,7 @@ function config.draw()
 
       imgui.new_line()
 
-      if imgui.tree_node("Position and Size (Quest)") then
+      if imgui.tree_node("位置とサイズ(クエスト)") then
         changed = draw_combo(OVERLAY_MODULE, QUEST_ANCHOR_PROPERTY, ANCHOR_LABEL, ANCHORS) or changed
         changed = draw_drag_int(OVERLAY_MODULE, QUEST_X_PROPERTY, X_LABEL, 0, max_width) or changed
         changed = draw_drag_int(OVERLAY_MODULE, QUEST_Y_PROPERTY, Y_LABEL, 0, max_height) or changed
@@ -501,6 +518,9 @@ function config.draw()
     imgui.end_window()
   else
     is_open = false
+  end
+  if font ~= nil then
+    imgui.pop_font();
   end
 end
 
