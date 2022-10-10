@@ -22,33 +22,33 @@ local constants = {
     "マーケット"
   },
   -- Module Labels
-  ARGOSY_LABEL = "Argosy",
-  BUDDY_DOJO_LABEL = "Buddy Dojo",
-  COHOOT_NEST_LABEL = "Cohoot Nest",
-  ITEMS_LABEL = "Items",
-  MARKET_LABEL = "Market & Guild Store",
-  MELDING_POT_LABEL = "Melding Pot",
-  MEOWCENARIES_LABEL = "Meowcenaries",
-  NPCS_LABEL = "NPCs",
-  SUBQUESTS_LABEL = "Subquests",
+  ARGOSY_LABEL = "交易船",
+  BUDDY_DOJO_LABEL = "オトモ道場",
+  COHOOT_NEST_LABEL = "フクズクの巣",
+  ITEMS_LABEL = "アイテム",
+  MARKET_LABEL = "雑貨屋",
+  MELDING_POT_LABEL = "マカ錬金",
+  MEOWCENARIES_LABEL = "オトモ隠密隊",
+  NPCS_LABEL = "NPC",
+  SUBQUESTS_LABEL = "フリーサイドクエスト",
   -- Rare Finds
   RARE_FINDS_ITEMS = {
-    [68158516] = "Bhernastone",
-    [68157913] = "Dash Juice",
-    [68158517] = "Dundormarin",
-    [68157603] = "Flash Bomb",
-    [68158148] = "Gloamgrass Bud",
-    [68158222] = "Great Whetfish",
-    [68157803] = "Kelbi Horn",
-    [68158518] = "Loc Lac Ore",
-    [68158520] = "Minegardenite",
-    [68157677] = "Pale Extract",
-    [68157563] = "Pitfall Trap",
-    [68157444] = "Shock Trap",
-    [68157933] = "Sonic Bomb",
-    [68157910] = "Sushifish",
-    [68158519] = "Val Habar Quartz",
-    [68157939] = "Whetfish"
+    [68158516] = "ベルナストーン",
+    [68157913] = "強走薬",
+    [68158517] = "ドンドルマリン",
+    [68157603] = "閃光玉",
+    [68158148] = "落陽草の花",
+    [68158222] = "ドスキレアジ",
+    [68157803] = "ケルビの角",
+    [68158518] = "ロックラック鉱",
+    [68158520] = "ミナガルデナイト",
+    [68157677] = "アルビノエキス",
+    [68157563] = "落とし穴",
+    [68157444] = "シビレ罠",
+    [68157933] = "音爆弾",
+    [68157910] = "サシミウオ",
+    [68158519] = "バルバレクォーツ",
+    [68157939] = "キレアジ"
   },
   RARE_FINDS_ORDER = {
     68158516,
@@ -96,25 +96,6 @@ constants.MODULE_LABELS_JP = {
   "オトモ隠密隊",
   "NPC",
   "フリーサイドクエスト"
-}
-
-constants.RARE_FINDS_ITEMS_JP = {
-  [68158516] = "ベルナストーン",
-  [68157913] = "強走薬",
-  [68158517] = "ドンドルマリン",
-  [68157603] = "閃光玉",
-  [68158148] = "落陽草の花",
-  [68158222] = "ドスキレアジ",
-  [68157803] = "ケルビの角",
-  [68158518] = "ロックラック鉱",
-  [68158520] = "ミナガルデナイト",
-  [68157677] = "アルビノエキス",
-  [68157563] = "落とし穴",
-  [68157444] = "シビレ罠",
-  [68157933] = "音爆弾",
-  [68157910] = "サシミウオ",
-  [68158519] = "バルバレクォーツ",
-  [68157939] = "キレアジ"
 }
 
 return constants
