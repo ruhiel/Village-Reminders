@@ -409,7 +409,7 @@ function config.draw()
       imgui.new_line()
       changed = draw_remind_threshold(ARGOSY_MODULE, UNCOLLECTED_PROPERTY, UNCOLLECTED_ABOVE_PROPERTY, UNCOLLECTED_LABEL, 0, 19, ">") or changed
       changed = draw_remind_threshold(ARGOSY_MODULE, SKILL_DURATION_PROPERTY, SKILL_DURATION_BELOW_PROPERTY, SKILL_DURATION_LABEL, 1, 9, "<") or changed
-      changed = draw_multi_select(ARGOSY_MODULE, RARE_FINDS_PROPERTY, RARE_FINDS_LABEL, constants.RARE_FINDS_ITEMS, constants.RARE_FINDS_ORDER)
+      changed = draw_multi_select(ARGOSY_MODULE, RARE_FINDS_PROPERTY, RARE_FINDS_LABEL, constants.RARE_FINDS_ITEMS, constants.RARE_FINDS_ORDER) or changed
       imgui.new_line()
       imgui.tree_pop()
     end
