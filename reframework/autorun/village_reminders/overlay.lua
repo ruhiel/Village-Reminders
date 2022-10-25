@@ -44,8 +44,9 @@ end
 local overlay = {}
 
 function overlay.init()
-  bold_font = d2d.Font.new("Tahoma", font_size, true)
-  font = d2d.Font.new("Tahoma", font_size)
+  local font_family = config.get_overlay_font_family()
+  bold_font = d2d.Font.new(font_family, font_size, true)
+  font = d2d.Font.new(font_family, font_size)
   -- Rendered font seems to be higher than given font size. This is a hack to offset it back towards the center.
   local _, bold_height = bold_font:measure("")
   local _, normal_height = font:measure("")

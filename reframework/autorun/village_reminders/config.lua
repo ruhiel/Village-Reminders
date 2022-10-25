@@ -36,6 +36,8 @@ local DIRTY_POUCH_PROPERTY = "dirtyPouch"
 local ENABLED_LABEL = "有効無効"
 local ENABLED_PROPERTY = "enabled"
 local FILE = "village_reminders/config.json"
+local FONT_FAMILY_LABEL = "フォント"
+local FONT_FAMILY_PROPERTY = "fontFamily"
 local FONT_SIZE_LABEL = "フォントサイズ"
 local FONT_SIZE_PROPERTY = "fontSize"
 local FOREGROUND_LABEL = "前景色"
@@ -46,7 +48,7 @@ local IDLE_PROPERTY = "idle"
 local INDENT_LABEL = "インデント"
 local INDENT_PROPERTY = "indent"
 local ITEMS_MODULE = "items"
-local LATEST_VERSION = "1.4.0"
+local LATEST_VERSION = "1.5.0"
 local LINE_SPACING_LABEL = "行間"
 local LINE_SPACING_PROPERTY = "lineSpacing"
 local LOTTERY_LABEL = "福引のリマインド"
@@ -170,6 +172,7 @@ local properties = {
     [BASE_MIN_WIDTH_PROPERTY] = 0,
     [BASE_X_PROPERTY] = 24,
     [BASE_Y_PROPERTY] = 24,
+    [FONT_FAMILY_PROPERTY] = "Tahoma",
     [FONT_SIZE_PROPERTY] = 12,
     [FOREGROUND_PROPERTY] = 0xFFFFFFFF,
     [INDENT_PROPERTY] = 8,
@@ -232,6 +235,16 @@ end
 
 local function draw_drag_int(_module, property, label, min, max)
   local changed, value = imgui.drag_int(label, properties[_module][property], 1, min, max)
+
+  if changed then
+    properties[_module][property] = value
+  end
+
+  return changed
+end
+
+local function draw_input_text(_module, property, label)
+  local changed, value = imgui.input_text(label, properties[_module][property])
 
   if changed then
     properties[_module][property] = value
@@ -381,8 +394,9 @@ function config.draw()
     if imgui.tree_node("オーバーレイ") then
       imgui.new_line()
       local max_width, max_height = d2d.surface_size()
+      changed = draw_input_text(OVERLAY_MODULE, FONT_FAMILY_PROPERTY, FONT_FAMILY_LABEL) or changed
       changed = draw_slider_int(OVERLAY_MODULE, FONT_SIZE_PROPERTY, FONT_SIZE_LABEL, 4, 72) or changed
-      imgui.text("注意: フォントサイズの変更には再起動が必要です。")
+      imgui.text("注意: フォントの変更にはModの再起動が必要です。")
       imgui.new_line()
       changed = draw_slider_int(OVERLAY_MODULE, LINE_SPACING_PROPERTY, LINE_SPACING_LABEL, 0, 72) or changed
       changed = draw_slider_int(OVERLAY_MODULE, INDENT_PROPERTY, INDENT_LABEL, 0, 72) or changed
@@ -692,6 +706,10 @@ function config.get_overlay_base_y()
   return properties[OVERLAY_MODULE][BASE_Y_PROPERTY]
 end
 
+function config.get_overlay_font_family()
+  return properties[OVERLAY_MODULE][FONT_FAMILY_PROPERTY]
+end
+
 function config.get_overlay_font_size()
   return properties[OVERLAY_MODULE][FONT_SIZE_PROPERTY]
 end
@@ -909,6 +927,12 @@ function config.load()
     subquests_module[ACTIVE_PROPERTY] = constants.THRESHOLD_REMINDER_MODE
     subquests_module[COMPLETED_PROPERTY] = constants.THRESHOLD_REMINDER_MODE
 
+    updated = true
+  end
+
+  if version == "1.4.0" then
+    version = "1.5.0"
+    properties[GLOBAL_MODULE] = {[VERSION_PROPERTY] = version}
     updated = true
   end
 
