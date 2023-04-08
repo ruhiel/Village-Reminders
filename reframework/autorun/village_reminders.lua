@@ -5,5 +5,11 @@ local overlay = require("village_reminders.overlay")
 
 -- Hooks
 re.on_draw_ui(config.draw)
-d2d.register(overlay.init, overlay.draw)
+
+if d2d then
+  d2d.register(overlay.init, overlay.draw)
+else
+  re.on_frame(overlay.draw)
+end
+
 hooks.init()

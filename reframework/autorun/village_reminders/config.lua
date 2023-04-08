@@ -376,7 +376,18 @@ function config.draw()
 
     if imgui.tree_node("Overlay") then
       imgui.new_line()
-      local max_width, max_height = d2d.surface_size()
+
+      if not d2d then
+        imgui.text_colored("Warning: D2D is not installed. Some settings may not work correctly. This mode will only have limited support.", 0xFF0000FF)
+        imgui.new_line()
+      end
+
+      local max_width, max_height = 3840, 2160 -- 4K
+
+      if d2d then
+        max_width, max_height = d2d.surface_size()
+      end
+
       changed = draw_input_text(OVERLAY_MODULE, FONT_FAMILY_PROPERTY, FONT_FAMILY_LABEL) or changed
       changed = draw_slider_int(OVERLAY_MODULE, FONT_SIZE_PROPERTY, FONT_SIZE_LABEL, 4, 72) or changed
       imgui.text("Note: Changes to font require the mod to be restarted.")
