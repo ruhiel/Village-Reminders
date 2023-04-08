@@ -3,6 +3,7 @@ local lookup = require("village_reminders.lookup")
 
 -- Constants
 local CHAT_MANAGER_TYPE = "snow.gui.ChatManager"
+local CHAT_MISSION_INFO_TYPE = "snow.gui.ChatManager.ChatMissionInfo"
 local FREE_MISSION_WORK_TYPE = "snow.quest.FreeMissionWork"
 local MISSION_DEF_TYPE = "snow.quest.MissionDef"
 local MISSION_MANAGER_TYPE = "snow.quest.MissionManager"
@@ -10,7 +11,9 @@ local MISSION_SAVE_DATA_TYPE = "snow.quest.MissionManager.MissionSaveData"
 
 -- Memo
 local chat_manager_type_def = sdk.find_type_definition(CHAT_MANAGER_TYPE)
-local request_add_chat_quest_info_method = chat_manager_type_def:get_method("reqAddChatQuestInfo(snow.quest.FreeMissionData, System.Int32, System.Int32, System.Boolean)")
+local add_chat_list_method = chat_manager_type_def:get_method("addChatList")
+
+local chat_mission_info_type_def = sdk.find_type_definition(CHAT_MISSION_INFO_TYPE)
 
 local free_mission_work_type_def = sdk.find_type_definition(FREE_MISSION_WORK_TYPE)
 local data_idx_field = free_mission_work_type_def:get_field("_DataIdx")
@@ -104,7 +107,11 @@ local function update_quest()
 end
 
 function subquests.hook()
-  sdk.hook(request_add_chat_quest_info_method, nil, update_quest)
+  sdk.hook(add_chat_list_method, function(args)
+    if sdk.to_managed_object(args[3]):get_type_definition():is_a(chat_mission_info_type_def) then
+      update_quest()
+    end
+  end)
 end
 
 function subquests.init_base()

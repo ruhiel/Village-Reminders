@@ -25,12 +25,17 @@ local font_size = config.get_overlay_font_size()
 -- Functions
 local function insert_reminder(reminders, _module, module_reminders, max_width)
   reminders[_module] = module_reminders
-  local header_width, _ = bold_font:measure(_module)
-  max_width = math.max(header_width, max_width)
 
-  for _, reminder in ipairs(module_reminders) do
-    local width, _ = font:measure(reminder)
-    max_width = math.max(width + config.get_overlay_indent(), max_width)
+  if bold_font then
+    local header_width, _ = bold_font:measure(_module)
+    max_width = math.max(header_width, max_width)
+  end
+
+  if font then
+    for _, reminder in ipairs(module_reminders) do
+      local width, _ = font:measure(reminder)
+      max_width = math.max(width + config.get_overlay_indent(), max_width)
+    end
   end
 
   return max_width
@@ -66,9 +71,13 @@ local function draw_overlay(max_width, lines, reminders, overlay_anchor, overlay
   local top_y = 0
   local background_width = max_width + 2 * padding
   local background_height = font_size * lines + line_spacing * (lines - 1) + padding * 2
-  local surface_width, surface_height = d2d.surface_size()
+  local surface_width, surface_height = 0, 0
   local foreground_color = config.get_overlay_foreground()
   local background_color = config.get_overlay_background()
+
+  if d2d then
+    surface_width, surface_height = d2d.surface_size()
+  end
 
   if overlay_anchor == constants.TOP_RIGHT_ANCHOR or overlay_anchor == constants.BOTTOM_RIGHT_ANCHOR then
     left_x = left_x + surface_width - background_width - overlay_x
@@ -82,7 +91,12 @@ local function draw_overlay(max_width, lines, reminders, overlay_anchor, overlay
     top_y = top_y + overlay_y
   end
 
-  d2d.fill_rect(left_x, top_y, background_width, background_height, background_color)
+  if d2d then
+    d2d.fill_rect(left_x, top_y, background_width, background_height, background_color)
+  else
+    draw.filled_rect(left_x, top_y, background_width, background_height, background_color)
+  end
+
   local line = 1
   local module_order = config.get_overlay_order()
   local total_modules = #module_order
@@ -96,11 +110,21 @@ local function draw_overlay(max_width, lines, reminders, overlay_anchor, overlay
     local module_reminders = reminders[_module]
 
     if module_reminders ~= nil then
-      d2d.text(bold_font, _module, left_x + padding, top_y + (font_size + line_spacing) * (line - 1) + padding - font_offset_y, foreground_color)
+      if d2d then
+        d2d.text(bold_font, _module, left_x + padding, top_y + (font_size + line_spacing) * (line - 1) + padding - font_offset_y, foreground_color)
+      else
+        draw.text(_module, left_x + padding, top_y + (font_size + line_spacing) * (line - 1) + padding - font_offset_y, foreground_color)
+      end
+
       line = line + 1
 
       for _, reminder in ipairs(module_reminders) do
-        d2d.text(font, reminder, left_x + padding + indent, top_y + (font_size + line_spacing) * (line - 1) + padding - font_offset_y, foreground_color)
+        if d2d then
+          d2d.text(font, reminder, left_x + padding + indent, top_y + (font_size + line_spacing) * (line - 1) + padding - font_offset_y, foreground_color)
+        else
+          draw.text(reminder, left_x + padding + indent, top_y + (font_size + line_spacing) * (line - 1) + padding - font_offset_y, foreground_color)
+        end
+
         line = line + 1
       end
     end
